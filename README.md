@@ -16,6 +16,7 @@ Component | URL | Auth
 ----------|-----|-----
 Droid | http://localhost:8888 | admin/password1
 Superset | http://localhost:8080 | admin/password1
+Ozone UI | http://localhost:9876/ | -
 
 
 ## Notes

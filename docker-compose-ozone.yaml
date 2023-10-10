@@ -1,0 +1,51 @@
+version: "3"
+services:
+   datanode:
+      image: apache/ozone:1.3.0
+      platform: linux/amd64
+      ports:
+         - 9864
+      command: ["ozone","datanode"]
+      env_file:
+         - ./etc/ozone/.env
+
+   om:
+      image: apache/ozone:1.3.0
+      platform: linux/amd64
+      ports:
+         - 9874:9874
+      environment:
+         ENSURE_OM_INITIALIZED: /data/metadata/om/current/VERSION
+         WAITFOR: scm:9876
+      env_file:
+         - ./etc/ozone/.env
+      command: ["ozone","om"]
+
+   scm:
+      image: apache/ozone:1.3.0
+      platform: linux/amd64
+      ports:
+         - 9876:9876
+      env_file:
+         - ./etc/ozone/.env
+      environment:
+         ENSURE_SCM_INITIALIZED: /data/metadata/scm/current/VERSION
+      command: ["ozone","scm"]
+
+   recon:
+      image: apache/ozone:1.3.0
+      platform: linux/amd64
+      ports:
+         - 9888:9888
+      env_file:
+         - ./etc/ozone/.env
+      command: ["ozone","recon"]
+
+   s3g:
+      image: apache/ozone:1.3.0
+      platform: linux/amd64
+      ports:
+         - 9878:9878
+      env_file:
+         - ./etc/ozone/.env
+      command: ["ozone","s3g"]
